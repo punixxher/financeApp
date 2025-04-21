@@ -1,5 +1,5 @@
 import { CreditCard } from "lucide-react";
-import { CardProduct } from "@/components/ui/cardProduct";
+import { Transactions } from "@/components/ui/transactions";
 import { Transaction } from "@/domains/product/entities/transaction";
 
 type Props = {
@@ -24,7 +24,7 @@ export const TransactionsSection = ({ search, setSearch, filteredTransactions }:
 
         <div className="space-y-3">
             {filteredTransactions.map((item, idx) => (
-                <CardProduct key={idx} {...item} />
+                <Transactions key={idx}  {...item} />
             ))}
         </div>
     </div>
