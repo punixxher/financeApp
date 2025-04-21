@@ -1,17 +1,16 @@
-
-import { getProductById } from "@/application/product/usecases/getProductById";
-import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-
+import {getProductById} from "@/application/product/usecases/getProductById";
+import {notFound} from "next/navigation";
+import {ArrowLeft} from "lucide-react";
 
 type Props = {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 };
 
+export const dynamic = "force-dynamic";
 
-export default async function ProductDetailPage({params}: Props) {
-    const {id} = await params
+export default async function ProductDetailPage({ params }: Props) {
+    const {id} = await params;
     const transaction = await getProductById(parseInt(id));
 
     if (!transaction) return notFound();
@@ -47,7 +46,10 @@ export default async function ProductDetailPage({params}: Props) {
                     </div>
 
                     <div className="mt-6">
-                        <Link href="/"  className="bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-2 rounded-lg text-sm font-semibold cursor-pointer">
+                        <Link
+                            href="/"
+                            className="bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-2 rounded-lg text-sm font-semibold cursor-pointer inline-block text-center"
+                        >
                             Ver historial de transacciones
                         </Link>
                     </div>

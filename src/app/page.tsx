@@ -2,9 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { getDashboardData } from "@/application/product/usecases/getDashboardData";
-
-// Componentes
-
 import { InvestmentsSection } from "@/components/ui/InvestmentsSection";
 import {DashboardHeader} from "@/components/layout/dashboardHeader";
 import {DashboardSummary} from "@/components/ui/dashboardSummary";
@@ -16,10 +13,9 @@ const mockFinancialProducts = [
     { id: 1, name: "Cuenta Corriente", type: "Cuenta", category: "Cuentas", interestRate: "0%", risk: "Bajo" },
     { id: 2, name: "Tarjeta VISA Clásica", type: "Tarjeta de crédito", category: "Tarjetas", interestRate: "25%", risk: "Alto" },
     { id: 3, name: "Fondo Moderado", type: "Fondo", category: "Inversiones", interestRate: "7%", risk: "Medio" },
-    { id: 4, name: "Seguro de Vida", type: "Seguro", category: "Seguros", interestRate: "-", risk: "Bajo" },
 ];
 
-const categories = ["Todos", "Cuentas", "Tarjetas", "Inversiones", "Seguros"];
+const categories = ["Todos", "Cuentas", "Tarjetas", "Inversiones"];
 
 export default function Dashboard() {
     const data = getDashboardData();
