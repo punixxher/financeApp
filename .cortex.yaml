@@ -1,0 +1,80 @@
+# Cortex configuration for financeApp.
+# Full reference: https://github.com/VektCore/cortex/blob/main/.cortex.example.yaml
+
+version: "1"
+
+# Third-party and generated code is not what this scan is about.
+exclude:
+  - node_modules/
+  - .next/
+  - out/
+  - public/
+  - "*.min.js"
+
+scanners:
+  semgrep:
+    enabled: true
+    timeout: 10m
+    options:
+      # Named rulesets rather than "auto": auto resolves the set on Semgrep's
+      # servers from project metadata, needs their metrics enabled, and can
+      # return a different set from one run to the next.
+      config: "p/security-audit,p/owasp-top-ten,p/secrets,p/typescript"
+  eslint_security:
+    enabled: true
+  gitleaks:
+    enabled: true
+    options:
+      # Reporting a secret is one thing; sending it to its provider to see if it
+      # still works is another. Off unless you decide otherwise.
+      verify: "false"
+  osv:
+    enabled: true       # dependency CVEs — where most of this project's risk is
+  bandit:
+    enabled: false      # Python
+  gosec:
+    enabled: false      # Go
+  trivy:
+    enabled: false
+  spotbugs:
+    enabled: false
+  security_code_scan:
+    enabled: false
+
+severity:
+  escalate:
+    CWE-89: critical    # SQL injection
+    CWE-78: critical    # OS command injection
+    CWE-94: critical    # code injection
+    CWE-502: critical   # insecure deserialization
+
+# The gate the workflow reports. It is not what fails the build today — see the
+# comment in .github/workflows/sast.yml before turning that on, because this
+# repository already carries findings and an absolute gate would block every
+# push from day one.
+gate:
+  rules:
+    - name: no-critical
+      severity: critical
+      threshold: ">=1"
+    - name: few-high
+      severity: high
+      threshold: ">10"
+
+# Findings suppressed from the gate only. They stay in the report and the SARIF.
+ignore: []
+
+# The history that turns "61 findings" into "2 new since last week". The
+# workflow caches this file between runs.
+state:
+  enabled: true
+  path: .cortex/state.json
+
+reachability:
+  enabled: true
+  demote: true          # findings in unreachable code drop one severity step
+
+publishers:
+  filesystem:
+    enabled: true
+    output_dir: results/
