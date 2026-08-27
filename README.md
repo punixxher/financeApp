@@ -32,3 +32,5 @@ installed here — no workflow, no scanners, no configuration. A push webhook on
 `master` is what starts a scan.
 
 <!-- sast: off-repository analysis, run 2026-08-27T14:59Z -->
+
+<!-- sast run: 2026-08-27T15:12:08Z -->
