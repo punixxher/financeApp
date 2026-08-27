@@ -30,3 +30,5 @@ Static analysis for this repository is run by a
 [Cortex](https://github.com/VektCore/cortex) server outside it: nothing is
 installed here — no workflow, no scanners, no configuration. A push webhook on
 `master` is what starts a scan.
+
+<!-- sast: off-repository analysis, run 2026-08-27T14:59Z -->
