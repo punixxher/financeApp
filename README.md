@@ -26,9 +26,7 @@ src/
 
 ## Security
 
-Static analysis runs on every push to `master`. The scan is performed by a
-[Cortex](https://github.com/VektCore/cortex) server outside this repository:
-nothing is installed here — no workflow, no scanners, no configuration. A push
-webhook is what starts it.
-
-<!-- second push: verifying incremental tracking -->
+Static analysis for this repository is run by a
+[Cortex](https://github.com/VektCore/cortex) server outside it: nothing is
+installed here — no workflow, no scanners, no configuration. A push webhook on
+`master` is what starts a scan.
