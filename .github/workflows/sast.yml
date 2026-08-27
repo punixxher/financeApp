@@ -73,7 +73,9 @@ jobs:
             cortex-state-
 
       - name: Install Cortex
-        run: go install github.com/vektcore/cortex/cmd/cortex@main
+        # Pinned to a release, not @main: a scanner that changes under you
+        # changes its findings without anyone asking for it.
+        run: go install github.com/vektcore/cortex/cmd/cortex@v0.1.0
 
       - name: Install the scanners
         run: |
@@ -110,14 +112,14 @@ jobs:
       # Findings show up under Security → Code scanning, annotated on the lines
       # they belong to. Free for public repositories.
       - name: Upload SARIF to Code Scanning
-        if: always()
+        if: always() && hashFiles('results/scan.sarif') != ''
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results/scan.sarif
           category: cortex
 
       - name: Keep the SARIF as an artifact
-        if: always()
+        if: always() && hashFiles('results/*') != ''
         uses: actions/upload-artifact@v4
         with:
           name: cortex-sarif
