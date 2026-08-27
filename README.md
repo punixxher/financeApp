@@ -23,3 +23,10 @@ src/
 ├── lib/                  # Utilidades generales
 ├── styles/               # Estilos globales
 ├── types/                # Tipado global o compartido
+
+## Security
+
+Static analysis runs on every push to `master`. The scan is performed by a
+[Cortex](https://github.com/VektCore/cortex) server outside this repository:
+nothing is installed here — no workflow, no scanners, no configuration. A push
+webhook is what starts it.
