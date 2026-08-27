@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Cortex scan output. The vulnerability history under .cortex/ is cached by the
+# SAST workflow rather than committed.
+/results/
+/.cortex/
